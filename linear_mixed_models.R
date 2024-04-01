@@ -1,4 +1,4 @@
-# Load packages for mixed-effects models
+# Load packages for mixed-effects models and spline functions
 library(lme4)
 library(splines)
 library(optimx)
@@ -28,7 +28,7 @@ AgeSpline <- ns(df$Age, knots = AgeSplineKnots, Boundary.knots = AgeSplineBounda
 RE_CRP <- lmer(
   CRP ~ Elixhauser + Charlson + AgeSpline + Sex +
     TimeSpline * (BugGroup + Source + CommunityOnset + ImmunoSuppression) +
-    (TimeSpline | EpisodeID),
+    (TimeSpline | EpisodeID), # Random intercept and slope for time
   data = df,
   REML = TRUE)
 

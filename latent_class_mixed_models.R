@@ -33,7 +33,7 @@ LCMM_CRP_2 <- lcmm(
   mixture = ~ T1 + T2 + T3 + T4,
   random = ~ T1 + T2 + T3 + T4, maxiter = 10000,
   subject = "EpisodeID", ng = 2, B = LCMM_CRP_1,
-  nproc = 20,
+  nproc = 20, # Number of cores to use for parallel processing
   data = df
 )
 

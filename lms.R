@@ -1,7 +1,8 @@
+# Load packages for gamlss, mixed-effects models and spline functions
 library(data.table)
 library(gamlss)
-library(splines)
 library(lme4)
+library(splines)
 
 # df: dataset for standard responders
 df_unique <- df[, .SD[1], by = EpisodeID]
