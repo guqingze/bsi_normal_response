@@ -43,6 +43,7 @@ sim <- simulate(RE_CRP, nsim = 1, re.form = NA, cond.sim = FALSE,
 setDT(sim)
 setnames(sim, old = c("sim_1"), new = c("sim"))
 df_sim <- cbind(df_resampled, sim)
+df_sim[, sim := ifelse(lambda == 0, exp(sim), (lambda * sim + 1)^(1 / lambda))] # invert the box-cox transformation
 
 # Fit a GAMLSS model (LMS method) with the simulated data
 log(nrow(df_sim))

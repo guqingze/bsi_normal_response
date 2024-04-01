@@ -22,7 +22,7 @@ LCMM_CRP_1 <- lcmm(
   CRP_trans ~ T1 + T2 + T3 + T4,
   random = ~ T1 + T2 + T3 + T4,
   subject = "EpisodeID",
-  nproc = 20,
+  nproc = 20, # Number of cores to use for parallel processing
   data = df
 )
 

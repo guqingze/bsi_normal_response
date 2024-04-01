@@ -3,6 +3,15 @@ library(lme4)
 library(splines)
 library(optimx)
 
+# Box-Cox transformation for CRP and WBC
+BCtrans <- MASS::boxcox(lm(df$CRP ~ 1))
+lambda <- BCtrans$x[which.max(BCtrans$y)]
+df$CRP <- ifelse(lambda == 0, log(df$CRP), (df$CRP^lambda - 1) / lambda)
+
+BCtrans <- MASS::boxcox(lm(df$WBC ~ 1))
+lambda <- BCtrans$x[which.max(BCtrans$y)]
+df$WBC <- ifelse(lambda == 0, log(df$WBC), (df$WBC^lambda - 1) / lambda)
+
 # Define a natural spline for time using identified knots and boundary knots
 TimeSplineKnots <- quantile(df$time, c(0.20, 0.40, 0.60, 0.80))
 TimeSplineBoundary <- quantile(df$time, c(0.01, 0.99))
@@ -10,7 +19,7 @@ TimeSpline <- ns(df$time, knots = TimeSplineKnots, Boundary.knots = TimeSplineBo
 
 # Define a natural spline for age using identified knots and boundary knots
 AgeSplineKnots <- quantile(df$Age, c(0.50))
-AgeSplineBoundary <- quantile(df$Age, c(0.01, 0.99))
+AgeSplineBoundary <- quantile(df$Age, c(0.05, 0.95))
 AgeSpline <- ns(df$Age, knots = AgeSplineKnots, Boundary.knots = AgeSplineBoundary)
 
 # Fit linear mixed-effects models with the defined natural splines
