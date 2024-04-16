@@ -3,6 +3,14 @@ library(lme4)
 library(splines)
 library(optimx)
 
+# input dataset df: 
+# data frame with columns pseudonymised patient episode identifier,
+# time from blood culture collection to clinical parameter measurements,
+# clinical parameter values (CRP, WBC, HR, RR, Temp), age, sex,
+# comorbidities (Elixhauser, Charlson), source of infection, community-onset status,
+# immunosuppression status, baseline antimicrobial susceptibility, and pathogen groups.
+
+
 # Box-Cox transformation for CRP and WBC
 BCtrans <- MASS::boxcox(lm(df$CRP ~ 1))
 lambda <- BCtrans$x[which.max(BCtrans$y)]

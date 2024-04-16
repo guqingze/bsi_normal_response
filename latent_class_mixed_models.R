@@ -2,6 +2,11 @@
 library(lcmm)
 library(splines)
 
+# input dataset df: 
+# data frame with columns pseudonymised patient episode identifier,
+# time from blood culture collection to clinical parameter measurements,
+# and C-reactive protein  values (Box-Cox transformed).
+
 # Define the natural spline basis for 'time'
 # using the 25th, 50th, and 75th percentiles as knots and
 # 1st and 99th percentiles as boundary knots

@@ -4,7 +4,14 @@ library(gamlss)
 library(lme4)
 library(splines)
 
-# df: dataset for standard responders
+# input dataset df: 
+# data frame includes only standard responders with columns pseudonymised patient episode identifier,
+# time from blood culture collection to clinical parameter measurements,
+# C-reactive protein  values (Box-Cox transformed), age, sex,
+# comorbidities (Elixhauser, Charlson), source of infection, community-onset status,
+# immunosuppression status, and pathogen groups.
+
+
 df_unique <- df[, .SD[1], by = EpisodeID]
 df_unique <- df_unique[, .(EpisodeID, BugGroup, Source, Age, Sex,
                            CommunityOnset, ImmunoSuppression, Elixhauser, Charlson)]
